@@ -1,17 +1,90 @@
-<html>
-    <head>
-        <title>Posting!</title>
-    </head>
-    <body>
-        <h1>게시글 개별 페이지입니다</h1>
-        <p>{{post.postname}}</p>
-        <p>{{post.contents}}</p>
-        <!-- 이미지 보여주기 -->
-        {% if post.mainphoto %}
-            <img src = "{{ post.mainphoto.url }}" alt="" height="600">
-            <br>
-        {% endif %}
-        <a href="{% url 'board:Vision' %}">목록</a>
-        <a href="/board/{{post.pk}}/remove">삭제</a>
-    </body>
-</html>
+{% extends 'board/Base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <!-- 좌측 사이드 카테고리 시작 부분 -->
+        <div class="col-lg-2" id="board_list">
+            <br><h5>게시판</h5>
+            <hr>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">게시판 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">게시판 2</a>
+                </li>
+              
+            </ul>
+        </div>
+        <!-- 좌측 사이드 카테고리 끝 부분 -->
+
+        <!-- 여백 부분 -->
+        <div class="col-auto"></div>
+
+        <!-- 작성된 게시글 본문 시작 -->
+        <div class="col-lg-9" style="height:1000px">
+                    <h1>게시글 개별 페이지입니다</h1>
+                    <!-- 글 제목 -->
+                    <hr>
+                        <p style="word-break: break-all;">{{post.postname}}</p>
+                    <hr>
+                    <!-- 작성자 이름 -->
+                    작성자 이름
+                    <hr>
+                    <!-- 글 내용 -->
+                    <div id="contents" style="min-height:500px"><p style="word-break: break-all;">{{post.contents}}</p></div>
+
+                    <!-- 이미지 보여주기 -->
+                    {% if post.mainphoto %}
+                    <img src = "{{ post.mainphoto.url }}" alt="" height="600">
+                    <br>
+                    {% endif %}
+                    <hr>
+            <!-- 본문 아래 버튼 부분 -->
+            <div style="justify-content: center;">
+                <!-- 댓글(갯수 보여주기?) 좋아요 버튼 -->
+                <button class="btn btn-outline-secondary" type="button">댓글</button> <button class="btn btn-outline-secondary" type="button">좋아요</button>
+                <!-- 우측 하단 버튼들 -->
+                <div id="btn_posting" style="float:right;">
+                    <!-- 글 목록으로 돌아가는 버튼 -->
+                    <a href="{% url 'board:Vision' %}"><button class="btn btn-outline-secondary" type="button">목록</button></a>
+                    
+                    <!-- 글 삭제 버튼 시작 부분 -->
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        삭제
+                    </button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">삭제</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {{ Post.postname }} 정말 삭제하시겠습니까?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">닫기</button>
+                              <!-- 모달 창에서 삭제하기 버튼 누르면 삭제 페이지로 이동동 -->
+                              <a href="/board/{{post.pk}}/remove"><button type="button" class="btn btn-secondary">삭제하기</button></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- 글 삭제 버튼 끝 부분 -->
+                </div>
+                <hr>
+            </div>
+            <form method="comment">
+                {% csrf_token %}
+                <label for="conmments">댓글</label><br>
+                <textarea class="form-control" rows="10" id="contents" name="conmments"></textarea><br>
+                <input  class="btn btn-outline-dark" type="button" value="댓글쓰기">
+            </form>
+        </div>
+        <!-- 작성된 게시글 본문 끝 부분 -->
+    </div>
+</div>
+        
+
+{% endblock %}

@@ -1,19 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>글쓰기 페이지</title>
-</head>
-<body>
-    <h1>글쓰기 페이지</h1>
-    <form method="POST">
-        {% csrf_token %}
-        제목<br>
-        <input type="text" name="postname"><br>
-        내용<br>
-        <textarea rows="10" cols="50" name="contents"></textarea><br>
-        <input type="file" name="mainphoto"><br>
-        <input type="submit" value="글쓰기">
-    </form>
-</body>
-</html>
+{% extends 'board/Base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <!-- 좌측 사이드 카테고리 부분 -->
+        <div class="col-lg-2" id="board_list">
+            <br><h5>게시판</h5>
+            <hr>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">게시판 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">게시판 2</a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- 좌측 카테고리 끝 부분 -->
+
+        <!-- 여백 부분 -->
+        <div class="col-auto"></div>
+
+        <!-- 글쓰기 부분 -->
+        <div class="col-lg-9" style="height:1000px";>
+            <h4>글쓰기 페이지</h4>
+            <form method="POST">
+                {% csrf_token %}
+                <!-- 제목 입력 부분 -->
+                <label for="postname">제목</label><br>
+                <input type="text" class="form-control" id="postname" name="postname"><br>
+
+                <!-- 내용 입력 부분 -->
+                <label for="contents">내용</label><br>
+                <textarea class="form-control" rows="10" id="contents" name="contents"></textarea><br>
+
+                <!-- 파일 선택 -->
+                <input  type="file" name="mainphoto"><br><br>
+
+                <!-- 글쓰기 버튼 -->
+                <input  class="btn btn-outline-dark" type="submit" value="글쓰기">
+            </form>
+        </div>
+        <!-- 글쓰기 끝 부분 -->
+    </div>
+</div>
+
+
+    {% endblock %}

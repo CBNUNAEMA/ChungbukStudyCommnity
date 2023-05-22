@@ -1,19 +1,72 @@
-<html>
-    <head>
-        <title>Blog List</title>
-    </head>
-    <body>
-        <h1>게시판 페이지입니다</h1>
-        <!-- 게시판(postlist)의 게시글(list)을 하나씩 보여줍니다 -->
-        <!-- {와 %로 이루어진 구문 내부엔 파이썬이 사용됩니다 -->
-        <table>
-        {% for list in postlist %}
-            <!-- 게시글 클릭시 세부페이지로 넘어갑니다-->
-            <ul>
-                <li><a href="{{list.pk}}/">{{list.postname}}</a></li>
-            </ul>
-        {% endfor %}
-        </table>
-        <button><a href="{% url 'board:NewPost' %}">글쓰기</a></button>
-    </body>
-</html>
+{% extends 'board/Base.html' %}
+{% block content %}
+    <!-- body -->
+    <div class="container">
+        <div class="row mt-5">
+            <!-- 좌측 사이드 카테고리 시작 부분 -->
+            <div class="col-lg-2" id="board_list">
+                <br><h5>게시판</h5>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">게시판 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">게시판 2</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- 좌측 사이드 카테고리 끝 부분 -->
+            <!-- 여백 -->
+            <div class="col-auto"></div>
+            <!-- 우측 본문 시작 부분 -->
+            <div class="col-lg-9" style="height: 1000px;"> 
+                <br><h4>현재 게시판 이름</h4><br>
+                <!-- 글 목록 시작 부분 -->
+                <table class="table"  style="table-layout: fixed;">
+                    <!-- 테이블 너비 비율 조정해놓은 부분 -->
+                    <colgroup>
+                        <col width="10%">
+                        <col max-width="60%">
+                        <col width="15%">
+                        <col width="15%">
+                    </colgroup>
+
+                    <!-- 글 목록 상단 바 -->
+                    <thead>
+                        <tr class="text-center table-dark">
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>작성일시</th>
+                        </tr>
+                    </thead>
+
+                    <!-- 글 목록 부분 -->
+                    <tbody">
+                    {% for list in postlist %}
+                        <!-- 게시판(postlist)의 게시글(list)을 하나씩 보여줍니다 -->
+                        <!-- {와 %로 이루어진 구문 내부엔 파이썬이 사용됩니다 -->
+                        <!-- 게시글 클릭시 세부페이지로 넘어갑니다-->
+                        <tr>
+                            <td class="text-center">{{forloop.counter}}</td>
+                            <td class="text-start" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><a href="{{list.pk}}/">{{list.postname}}</a></td>
+                            <td class="text-center">{{list.author}}</td>
+                            <td class="text-center"></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <!-- 글 목록 끝 부분 -->
+
+                <!-- 글쓰기 버튼 부분 -->
+                <a href="{% url 'board:NewPost' %}"><button class="btn btn-outline-secondary" style="float:right;">글쓰기</button></a>
+               
+            </div>
+            <!-- 우측 본문 끝 부분 -->
+        </div>
+
+    </div>
+
+{% endblock %}
