@@ -1,0 +1,83 @@
+{% extends 'accounts/Base.html' %}
+{% block content %}
+        <!-- 마이페이지 본문 부분 -->
+    <div class=container>
+        <div class="row">
+            <div class="col-lg-4 pt-5">
+                <div class="list-group">
+                    <a href="{% url 'accounts:MyPage' %}" class="list-group-item list-group-item-action">내 정보</a>
+                    <a href="{% url 'accounts:MyPageInfoChange' %}" class="list-group-item list-group-item-action">정보 변경</a>
+                    <a href="{% url 'accounts:test' %}" id="current" class="list-group-item list-group-item-action active" aria-current="true">강의 관리</a>
+                </div>
+            </div>
+            <div class="col-lg-7 pt-5">
+                <h5>강의 관리</h5>
+                <hr>
+                <div class="form-floating">
+                    <div class="input-group">
+                        <input type="text" name="search_subject" id="search_subject" class="form-control" value="">
+                        <span class="input-group-btn">
+                            <button class="btn btn-outline-secondary" type="button" id="search_btn">검색</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-floating" id="select_subject" style="overflow:auto; width: 641.02px; height: 100px; ">
+                    <div class="row-4">
+                            <div class="col-auto">
+                                <div class="subject_1">
+                                    <input class="form-check-input" type="checkbox" value="" id="subject_1"> 
+                                    <label class="form-check-label" for="subject_1">
+                                      과목명 1
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="subject_2">
+                                    <input class="form-check-input" type="checkbox" value="" id="subject_2"> 
+                                    <label class="form-check-label" for="subject_2">
+                                      과목명 2
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="subject_3">
+                                    <input class="form-check-input" type="checkbox" value="" id="subject_3">
+                                    <label class="form-check-label" for="subject_3">
+                                       과목명 3
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="subject_3">
+                                    <input class="form-check-input" type="checkbox" value="" id="subject_4">
+                                    <label class="form-check-label" for="subject_4">
+                                       과목명 4
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="subject_3">
+                                    <input class="form-check-input" type="checkbox" value="" id="subject_5">
+                                    <label class="form-check-label" for="subject_5">
+                                       과목명 5
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="subject_3">
+                                    <input class="form-check-input" type="checkbox" value="" id="subject_6">
+                                    <label class="form-check-label" for="subject_6">
+                                       과목명 6
+                                    </label>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="add_btn">
+                    <a href="#"><button class="btn btn-outline-secondary type="button">추가하기</button></a>
+                </div>
+            </div>
+        </div>
+
+
+{% endblock %}

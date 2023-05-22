@@ -1,13 +1,9 @@
 .selector-for-some-widget {
     box-sizing: content-box;
 } 
-body{
-    background: rgb(185, 178, 178);
-}
 .row{
     background: white;
 }
-.list
 .btn1{
         border : none;
         outline: none;
@@ -22,4 +18,12 @@ body{
 #current{
     background-color: #A4B0ED;
     border-color: #A4B0ED;
+}
+#select_subject{
+    border: black;
+    overflow: auto;
+    width:100px;
+    height:150px;
+
+
 }

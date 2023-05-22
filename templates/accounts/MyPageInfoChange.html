@@ -3,56 +3,63 @@
         <!-- 마이페이지 본문 -->
         <div class="container">
             <div class="row">
-                <!-- 좌측 사이드 페이지 탭 -->
-                <div class="col-lg-4 pt-5">
-                    <!-- active 입력된 리스트는 현재 선택한 리스트를 의미함 리스트를 클릭하면 해당 페이지로 이동 -->
+                <!-- 좌측 사이드 페이지 탭 시작 부분 -->
+                <div class="col-lg-4 pt-5">                    
                     <div class="list-group">
                         <a href="{% url 'accounts:MyPage' %}" class="list-group-item list-group-item-action">내 정보</a>
                         <a href="{% url 'accounts:MyPageInfoChange' %}" id="current" class="list-group-item list-group-item-action active" aria-current="true">정보 변경</a>
-                        <a href="#" class="list-group-item list-group-item-action">Tap 3</a>
-                        <a href="#" class="list-group-item list-group-item-action">Tap 4</a>
+                        <a href="{% url 'accounts:test' %}" class="list-group-item list-group-item-action">강의 관리</a>
                       </div>
                 </div>
-                <!-- 정보 변경 부분 -->
+                <!-- 좌측 사이드 페이지 탭 끝 부분 -->
+
+                <!-- 정보 변경 시작 부분 -->
                 <div class="col-lg-7">
                     <form action="{% url 'accounts:MyPageInfoChange' %}", method="POST">
-                        <br><h4>정보 변경</h4>
-                        <hr>
+                        <br><h4>정보 변경</h4><hr>
+                        
                         <!-- 새로운 이름 입력 부분 id, name = new_name -->
                         <div class="form-floating mb-3">
                             <input type="text" name="new_name" id="new_name" placeholder="Name" class="form-control" onfocus="placeholder=''" onblur="placeholder='Name'">
                             <label for="name" class="form-label">이름</label> 
                         </div>
+
                         <!-- 새로운 아이디 입력부분  -->
                         <div class="form-floating mb-3">
                             <input type="text" name="new_ID" id="new_ID" placeholder="ID" class="form-control" onfocus="placeholder=''" onblur="placeholder='ID'">
                             <label for="ID" class="form-label">아이디</label> 
                             <button id="Duplicate" type="button" class="btn btn-secondary">중복확인</button>
                         </div>
+
                         <!-- 현재 비밀번호 입력 부분 -->
                         <div class="form-floating mb-3">
                             <input type="password" id="user_pw" name="user_pw" class="form-control"  placeholder="Password" onfocus="placeholder=''" onblur="placeholder='Password'">
                             <label for="user_pw" class="form-label">현재 비밀번호</label> 
                         </div>
+
                         <!-- 변경할 새로운 비밀번호 입력부분 -->
                         <div class="form-floating mb-3">
                             <input type="password" id="new_user_pw" name="new_user_pw" class="form-control"  placeholder="Password" onfocus="placeholder=''" onblur="placeholder='Password'">
                             <label for="new_user_pw" class="form-label">변경할 비밀번호</label> 
                         </div>
+
                         <!-- 새로운 비밀번호와 일치하는 비밀번호 입력하는 부분 -->
                         <div class="form-floating mb-3">
                             <input type="password" id="new_user_pw_check" name="new_user_pw_check" class="form-control" placeholder="Password" onfocus="placeholder=''" onblur="placeholder='Password'">
                             <label for="new_user_pw_check" class="form-label">변경할 비밀번호(확인)</label> 
                         </div>
+
                         <!-- 새로운 이메일 입력 부분 -->
                         <div class="form-floating mb-3">
                             <input type="email" id="new_email" name="new_email" placeholder="Name@example.com" class="form-control" onfocus="placeholder=''" onblur="placeholder='Name@example.com'">
                             <label for="email" class="form-label">이메일</label>
                         </div>
+
                         <!-- 변경 버튼 -->
                         <br><p><input type="submit" class="btn1" value="변경"></p>
                     </form>
                 </div>
+                <!-- 정보 변경 끝 부분 -->
             </div>
         </div>
         {% endblock %}
