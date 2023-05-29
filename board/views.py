@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
+from django.http import HttpRequest, HttpResponse
 
 def Bulletinboard(request): #게시판 렌더링 함수
     if request.method == 'POST':   #POST 요청인지 확인, POST 요청이면 새로운 게시물 생성
@@ -68,3 +69,42 @@ def RemovePost(request, pk):
         post.delete()
         return redirect('/board/')
     return render(request, 'board/remove_post.html', {'Post': post})
+
+# 로그인한 사용자에게만 게시판 표시하는 함수
+def index(request: HttpRequest) -> HttpResponse:
+    if not request.user.is_authenticated:
+        return redirect("/accounts/login")
+    qs = Post.objects.all()
+    return render(request, "board/blog.html", context={"postList": qs})
+
+# 게시글 좋아요 함수
+def likePost(request, postId):
+    if request.method == "POST":
+        try:
+            post = Post.objects.get(pk=postId)
+            if post.is_liked_by_user:  # 이미 좋아요를 눌렀을 경우
+                post.likes -= 1  # 좋아요 수 감소
+                post.is_liked_by_user = False  # 좋아요 상태 변경
+            else:  # 좋아요를 누르지 않았을 경우
+                post.likes += 1  # 좋아요 수 증가
+                post.is_liked_by_user = True  # 좋아요 상태 변경
+            post.save()
+        except Post.DoesNotExist:
+            pass
+    return redirect('post_detail')
+
+# 댓글 좋아요 함수
+def likeComment(request, commentId):
+    if request.method == "POST":
+        try:
+            comment = Comment.objects.get(pk=commentId)
+            if comment.is_liked_by_user:  # 이미 좋아요를 눌렀을 경우
+                comment.likes -= 1  # 좋아요 수 감소
+                comment.is_liked_by_user = False  # 좋아요 상태 변경
+            else:
+                comment.likes += 1  # 좋아요 수 증가
+                comment.is_liked_by_user = True  # 좋아요 상태 변경
+            comment.save()
+        except Comment.DoesNotExist:
+            pass
+    return redirect('post_detail')
