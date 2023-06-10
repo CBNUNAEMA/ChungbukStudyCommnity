@@ -38,12 +38,18 @@
             <br />
             <h4>현재 게시판 이름</h4>
             <div class="btns">
-              <button class="btn btn-primary">전체글</button>
-              <button class="btn btn-secondary">질문글</button>
-              <button class="btn btn-secondary">정보글</button>
-              <a href="{% url 'board:NewPost' lectName%}"
-                ><button class="btn btn-outline-primary" id="write">글쓰기</button></a
-              >
+              <a href="{% url 'board:board' lectName %}">
+                <button class="btn {% if tag == '전체글' %}btn-primary{% else %}btn-secondary{% endif %}">전체글</button>
+              </a>
+              <a href="{% url 'board:boardWithTag' lectName '질문글' %}">
+                <button class="btn {% if tag == '질문글' %}btn-primary{% else %}btn-secondary{% endif %}">질문글</button>
+              </a>
+              <a href="{% url 'board:boardWithTag' lectName '정보글' %}">
+                <button class="btn {% if tag == '정보글' %}btn-primary{% else %}btn-secondary{% endif %}">정보글</button>
+              </a>
+              <a href="{% url 'board:NewPost' lectName%}">
+                <button class="btn btn-outline-primary" id="write">글쓰기</button>
+              </a>
             </div>
       
             <!-- 글 목록 시작 부분 -->
@@ -76,7 +82,13 @@
                     <!-- {와 %로 이루어진 구문 내부엔 파이썬이 사용됩니다 -->
                     <!-- 게시글 클릭시 세부페이지로 넘어갑니다-->
                     <tr>
-                      <td class="text-center">태그이름</td>
+                      <td class="text-center">
+                        {% if list.tag == '질문글' %}
+                        질문글
+                        {% else %}
+                        정보글
+                        {% endif %}
+                      </td>
                       <td
                         class="text-start"
                         style="
