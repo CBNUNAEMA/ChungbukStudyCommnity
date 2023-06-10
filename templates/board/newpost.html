@@ -37,6 +37,13 @@
         <!-- 제목 입력 부분 -->
         <label for="postname">제목</label><br />
         <input type="text" class="form-control" id="postname" name="postname" required><br>
+      
+      <!-- 태그 선택 부분 -->
+        <label for="tag">태그</label><br />
+        <select name="tag" id="tag" class="form-control" required>
+          <option value="질문글">질문글</option>
+          <option value="정보글">정보글</option>
+        </select><br>
 
         <!-- 내용 입력 부분 -->
         <label for="contents">내용</label><br><textarea
@@ -45,37 +52,7 @@
         id="contents"
         name="contents"
         required></textarea><br>
-      
-        <!-- 작성 일자 -->
-        <label for="postdate">작성 일자</label><br>
-        <input type="text" class="form-control" id="postdate" name="postdate" value="{{ date.today }}" disabled><br>
-
-        <!-- 폰트 선택 부분 -->
-        <label for="font">글꼴</label><br>
-        <select class="form-control" id="font" name="font">
-          <option value="Arial">Arial</option>
-          <option value="Verdana">Verdana</option>
-          <option value="Helvetica">Helvetica</option>
-          <option value="맑은 고딕">맑은 고딕</option>
-          <option value="궁서">궁서</option>
-          <option value="돋움">돋움</option>
-        </select><br>
-
-        <!-- 글자 크기 선택 부분 -->
-        <label for="fontsize">글자 크기</label><br>
-        <select class="form-control" id="fontsize" name="fontsize">
-          <option value="12px">12px</option>
-          <option value="16px">16px</option>
-          <option value="16px">20px</option>
-          <option value="16px">24px</option>
-          <option value="16px">28px</option>
-          <option value="16px">32px</option>
-          <option value="16px">36px</option>
-          <option value="16px">40px</option>
-        </select><br>
-
-        <!-- 파일 선택 -->
-        <input class="form-control" type="file" name="mainphoto" /><br /><br />
+     
         <!-- 글쓰기 버튼 -->
         <div style="float: right">
           <a href="{% url 'board:board' lectName %}"><input class="btn btn-outline-dark" type="button" value="취소"></a>
