@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User 
 from .models import *
 from accounts.models import *
+from django.core.paginator import Paginator
 
 def NewPost(request,lectName): #게시판 렌더링 함수
     lectList = LectList.objects.get(username = request.user.username)
@@ -11,11 +12,13 @@ def NewPost(request,lectName): #게시판 렌더링 함수
         postContent = request.POST.get('contents')
         postAuthor = request.user.username
         postLectName = lectName
+        postTag = request.POST.get('tag') # 태그 값 가져오기
         postIt = Post()
         postIt.title = postTitle
         postIt.content = postContent
         postIt.author = postAuthor
         postIt.lectName = postLectName
+        postIt.tag = postTag # 태그 값 저장하기
         postIt.save()
         return redirect(f'/board/post/{lectName}') # 사용자를 게시판 페이지로 리디렉션
     return render(request, 'board/newpost.html', {'lectName' : lectName, 'lectList' :lectList})
@@ -84,12 +87,29 @@ def index(request):
     lectList = lectList.myLects.all()
     return render(request, "board/main.html", {"lectList": lectList})
 
+# 태그 관련 함수
+def boardWithTag(request, lectName, tag):
+    postList = Post.objects.filter(lectName=lectName, tag=tag)  # 태그와 게시판명에 해당하는 게시글 필터링
+    lectList = LectList.objects.get(username=request.user.username)
+    lectList = lectList.myLects.all()
+    
+    context = {
+        'lectName': lectName,
+        'tag': tag,
+        'postList': postList,
+        'lectList': lectList
+    }
+    return render(request, 'board/board.html', context)
+
 def lectBoard(request,lectName):
     if not request.user.is_authenticated:
         return redirect("main:home")
     lectList = LectList.objects.get(username = request.user.username)
     lectList = lectList.myLects.all()
-    postList = Post.objects.filter(lectName = lectName)
+    postList = Post.objects.filter(lectName = lectName).order_by('-id') # 게시물 최신순으로 정렬
+    
+    for post in postList:
+        post.tag = post.tag  # 태그 값을 가져와서 post.tag에 할당
     
     paginator = Paginator(postList, 10)
     pageNum = request.GET.get('page')
