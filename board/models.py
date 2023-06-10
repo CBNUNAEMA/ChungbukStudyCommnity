@@ -24,6 +24,10 @@ class Comment(models.Model):
     likes = models.ManyToManyField(like)
 
 class Post(models.Model):
+    tagChoice = (
+        ('질문글', '질문글'),
+        ('정보글', '정보글'),
+    )
     tag = models.CharField(max_length=10)
     title = models.CharField(max_length=30)
     content = models.TextField()
@@ -32,10 +36,6 @@ class Post(models.Model):
     lectName = models.CharField(max_length=20)
     comments = models.ManyToManyField(Comment)
     likes = models.ManyToManyField(like)
-    files = models.FileField(upload_to='post_files', blank=True, null=True)
-    images = models.ImageField(upload_to='post_images', blank=True, null=True)
-    font = models.CharField(max_length=50, blank=True)
-    fontSize = models.PositiveIntegerField(blank=True, null=True)
     
     def __str__(self):
         return f"{self.pk}. {self.title} - {self.author} ({self.pubDate})"
