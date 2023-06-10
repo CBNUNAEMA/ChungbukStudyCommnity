@@ -114,7 +114,7 @@ def lectBoard(request,lectName):
     paginator = Paginator(postList, 10)
     pageNum = request.GET.get('page')
     pageObj = paginator.get_page(pageNum)
-    return render(request, "board/board.html", {'lectList' : lectList,'postList':postObj, 'lectName' : lectName})
+    return render(request, "board/board.html", {'lectList' : lectList,'postList':pageObj, 'lectName' : lectName})
 
 def evalMain(request):
     myLects = []
