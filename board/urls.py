@@ -10,4 +10,5 @@ urlpatterns = [
     path('post/<str:lectName>/see/<int:pk>/', Posting, name ='Posting'),
     path('eval/', evalMain, name='eMain'),
     path('eval/lect/<str:lectName>', evalBoard, name='eBoard'),
+    path('post/<str:lectName>/tag/<str:tag>/', boardWithTag, name='boardWithTag'),
 ]
